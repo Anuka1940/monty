@@ -1,5 +1,6 @@
 #include "monty.h"
 
+glob_t glob = {NULL, NULL};
 /**
  * stack_init- initialize all things
  * @head: top of the stack data structure
@@ -14,12 +15,11 @@ void stack_init(stack_t **head)
  * free_all- free all stack after use
  * @stack: double pointer to top of stack
  */
-void free_all(stack_t **stack)
+void free_all(void)
 {
 	stack_t *temp1, *temp2 = NULL;
 
-	temp1 = *stack;
-
+	temp1 = *(glob.top);
 	while (temp1 != NULL)
 	{
 		temp2 = temp1->next;
