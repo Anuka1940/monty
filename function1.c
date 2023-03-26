@@ -79,3 +79,28 @@ void pop(stack_t **stack, unsigned int line_number)
 	(*stack) = (*stack)->next;
 	free(temp);
 }
+
+/**
+ * swap- swaps the top two elements of the stack
+ * @stack: double pointer to stack
+ * @line_number: void file line number
+ */
+void swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if ((!stack) || !((*stack)->next))
+	{
+		 printf("L%u: can't pint, stack empty", line_number);
+		  exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->next;
+	(*stack)->prev = (*stack)->next;
+	(*stack)->next = tmp->next;
+	tmp->prev = NULL;
+	(*stack)->prev = tmp;
+	if (tmp->next)
+		tmp->next->prev = *stack;
+	tmp->next = *stack;
+	(*stack) = (*stack)->prev;
+}

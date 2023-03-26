@@ -13,6 +13,7 @@ void delegate_op(stack_t **stack, char *op, unsigned int line_number)
 		{"pall", instruction_pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 
