@@ -46,7 +46,11 @@ void instruction_pall(stack_t **stack, unsigned int line_number)
 		temp = temp->next;
 	}
 }
-
+/**
+ * pint- print the first element on the stack
+ * @stack: double pointer to stack
+ * @line_number: void file line number
+ */
 void pint(stack_t **stack, unsigned int line_number)
 {
 	if (stack == NULL || *stack == NULL)
@@ -55,4 +59,23 @@ void pint(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
+}
+
+/**
+ * pop- delete element on top of the stack
+ * @stack: double pointer to stack
+ * @line_number: void file line number
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+
+	if (stack == NULL || *stack == NULL)
+	{
+		printf("L%u: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
+	(*stack) = (*stack)->next;
+	free(temp);
 }

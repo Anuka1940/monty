@@ -60,7 +60,7 @@ void free_all(void);
 void instruction_push(stack_t **stack, unsigned int line_number);
 void instruction_pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
-
+void pop(stack_t **stack, unsigned int line_number);
 /*help1, 2*/
 void process_file(char *filename, stack_t **stack);
 void delegate_op(stack_t **stack, char *op, unsigned int line_number);
