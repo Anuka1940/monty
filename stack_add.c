@@ -19,3 +19,4 @@ void stack_add(stack_t **stack, unsigned int line_number)
 	(*stack)->next->prev = NULL;
 	*stack = (*stack)->next;
 	free(delete);
+}
