@@ -1,50 +1,34 @@
 #include "monty.h"
 
-glob_t glob = {NULL, NULL};
-/**
- * stack_init- initialize all things
- * @head: top of the stack data structure
- */
-void stack_init(stack_t **head)
-{
-	*head = NULL;
-	glob.top = head;
-}
+allocated_t mem;
 
 /**
- * free_all- free all stack after use
- * @stack: double pointer to top of stack
+ * main - opens a Monty bytecode file and executes it
+ * @argc: number of arguments, should be 2
+ * @argv: array of command line arguments, should contain path to monty script
+ * Return: Success(0), Error(EXIT_FAILURE)
  */
-void free_all(void)
+int main(int argc, char const *argv[])
 {
-	stack_t *temp1, *temp2 = NULL;
-
-	temp1 = *(glob.top);
-	while (temp1 != NULL)
-	{
-		temp2 = temp1->next;
-		free(temp1);
-		temp1 = temp2;
-	}
-}
-
-/**
- * main- monty bytecode interpreter
- * @argc: number of args on command line
- * @argv: double pointer to array of args on comm line
- *
- * Return: EXIT_SUCCESSFUL or EXIT_FAILURE
- */
-int main(int argc, char **argv)
-{
-	stack_t *head;
-
-	stack_init(&head);
+	/* Checks for file arguments */
 	if (argc != 2)
 	{
-		printf("USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		return (EXIT_FAILURE);
 	}
-	process_file(argv[1], &head);
-	exit(EXIT_SUCCESS);
+
+	/* defaults format mode to stack */
+	mem.mode = STACK;
+
+	/* Attempts to open the file */
+	mem.pScript = fopen(argv[1], "r");
+	if (mem.pScript == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		return (EXIT_FAILURE);
+	}
+
+	/* Executes the monty bytecode script */
+	execute_script();
+	return (0);
 }
